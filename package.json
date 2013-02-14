@@ -1,0 +1,29 @@
+{
+	"name": "simpler",
+	"version": "0.0.1",
+	"description": "Simple File Reloader",
+	"keywords": [
+		"file",
+		"reload",
+		"restart",
+		"simple"
+	],
+	"homepage": "https://github.com/micnic/simpler",
+	"bugs": {
+		"url": "https://github.com/micnic/simpler/issues",
+		"email": "micnic90@gmail.com"
+	},
+	"author": {
+		"name": "Micleusanu Nicu",
+		"email": "micnic90@gmail.com",
+		"url": "https://github.com/micnic/"
+	},
+	"main": "index",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/micnic/simpler"
+	},
+	"engines": {
+		"node": ">=0.8"
+	}
+}
