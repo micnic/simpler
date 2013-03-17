@@ -1,7 +1,7 @@
 {
 	"name": "simpler",
-	"version": "0.0.1",
-	"description": "Simple File Reloader",
+	"version": "0.0.2",
+	"description": "Simple Script Reloader",
 	"keywords": [
 		"file",
 		"reload",

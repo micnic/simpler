@@ -23,7 +23,7 @@ module.exports = function () {
 	}
 
 	// Create the child process
-	var child = cp.fork(path, parameters);
+	var child = cp.fork(path, args);
 
 	// Watch file changes and reload script
 	fs.watch(path, function (event, filename) {

@@ -1,6 +1,12 @@
-# simpleR 0.0.1
+# simpleR 0.0.2
 
-simpleR is a simple file reloader for Node.JS
+simpleR is a simple script reloader for Node.JS
+
+### [Documentation](https://github.com/micnic/simpleR/wiki/Documentation "simpleR Documentation")
+
+#### More simple modules
+[simpleS](http://micnic.github.com/simpleS/)
+[simpleT](http://micnic.github.com/simpleT/)
 
 ## Instalation
 
