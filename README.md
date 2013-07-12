@@ -1,8 +1,11 @@
-# simpleR 0.0.2
+# simpleR 0.0.3
 
 simpleR is a simple script reloader for Node.JS
 
-### [Documentation](https://github.com/micnic/simpleR/wiki/Documentation "simpleR Documentation")
+### [Documentation](https://github.com/micnic/simpleR/wiki/Documentation)
+
+#### Works in Node.JS 0.10+
+#### Any feedback is welcome!
 
 #### More simple modules
 [simpleS](http://micnic.github.com/simpleS/)
@@ -17,7 +20,8 @@ simpleR is a simple script reloader for Node.JS
 ```javascript
 var simpler = require('simpler');
 
-var serverProcess = simpler('server.js', ['test'], function () {
-	console.log('Server restarted');
+simpler('server.js', ['test'], function (process) {
+    // Do something with the process
+    console.log('Server restarted');
 });
 ```

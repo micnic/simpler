@@ -1,29 +1,29 @@
 {
 	"name": "simpler",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Simple Script Reloader",
 	"keywords": [
-		"file",
 		"reload",
 		"restart",
+		"script",
 		"simple"
 	],
-	"homepage": "https://github.com/micnic/simpler",
+	"homepage": "https://micnic.github.com/simpleR",
 	"bugs": {
-		"url": "https://github.com/micnic/simpler/issues",
+		"url": "https://github.com/micnic/simpleR/issues",
 		"email": "micnic90@gmail.com"
 	},
 	"author": {
 		"name": "Micleusanu Nicu",
 		"email": "micnic90@gmail.com",
-		"url": "https://github.com/micnic/"
+		"url": "https://github.com/micnic"
 	},
 	"main": "index",
 	"repository": {
 		"type": "git",
-		"url": "http://github.com/micnic/simpler"
+		"url": "https://github.com/micnic/simpleR"
 	},
 	"engines": {
-		"node": ">=0.8"
+		"node": ">=0.10"
 	}
 }

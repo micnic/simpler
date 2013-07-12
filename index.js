@@ -1,40 +1,102 @@
-var cp = require('child_process');
-var fs = require('fs');
-var path = require('path');
+var cp = require('child_process'),
+	fs = require('fs');
 
-// The file reloader
-module.exports = function () {
+// SimpleR prototype constructor
+simpler = function (path, args, callback) {
 
-	// Prepare the parameters
-	var args = [];
-	var callback;
-	var path = arguments[0];
-
-	// Take the arguments for the script
-	if (Array.isArray(arguments[1])) {
-		args = arguments[1];
-	}
-
-	// Get the callback
-	if (typeof arguments[1] === 'function') {
-		callback = arguments[1];
-	} else if (typeof arguments[2] === 'function') {
-		callback = arguments[2];
-	}
-
-	// Create the child process
-	var child = cp.fork(path, args);
-
-	// Watch file changes and reload script
-	fs.watch(path, function (event, filename) {
-		child.kill();
-		child = cp.fork(path);
-
-		// Use callback if it is defined
-		if (callback) {
-			callback();
+	Object.defineProperties(this, {
+		args: {
+			value: [],
+			writable: true
+		},
+		callback: {
+			value: null,
+			writable: true
+		},
+		child: {
+			value: null,
+			writable: true
+		},
+		path: {
+			value: path
 		}
 	});
 
-	return child;
+	// Start the script reloader
+	this.start(args, callback);
+};
+
+// Start or restart the script reloading
+simpler.prototype.start = function (args, callback) {
+
+	var that = this;
+
+	// Get the provided parameters
+	if (typeof args === 'function') {
+		callback = args;
+		args = [];
+	} else {
+		args = args || [];
+	}
+
+	this.args = args || this.args;
+	this.callback = callback || this.callback;
+
+	// If the child process exists then kill it
+	if (this.child) {
+		this.child.kill();
+	}
+
+	// Create the child process
+	this.child = cp.fork(this.path, this.args);
+
+	// Watch file changes and reload script
+	fs.watchFile(this.path, {
+		persistent: true
+	}, function (current, previous) {
+
+		// Kill the child process
+		that.child.kill();
+
+		// If the file is removed stop watching it
+		if (!current.nlink) {
+			fs.unwatchFile(that.path);
+		} else {
+
+			// Create a new child process
+			that.child = cp.fork(that.path, that.args);
+
+			// Use callback if it is defined
+			if (typeof that.callback === 'function') {
+				that.callback(that.child);
+			}
+		}
+	});
+
+	// Call the first time the callback function
+	if (typeof this.callback === 'function') {
+		this.callback(this.child);
+	}
+
+	return this;
+};
+
+// Stop the script reloading
+simpler.prototype.stop = function () {
+
+	// Kill the child process only if it exists
+	if (this.child) {
+		this.child.kill();
+		this.child = null;
+	}
+	
+	// Unwatch the file on the provided path
+	fs.unwatchFile(this.path);
+
+	return this;
+};
+
+// Export a new simpleR instance
+module.exports = function (path, args, callback) {
+	return new simpler(path, args, callback);
 };
